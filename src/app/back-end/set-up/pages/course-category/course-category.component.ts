@@ -74,7 +74,7 @@ export class CourseCategoryComponent extends BackBaseComponent implements OnInit
     this.categoryService.getAllCategories<ICategoryModel[]>().subscribe(response => {
       this.hide;
 
-      //console.log("CATEGORIES: ", response);
+      console.log("CATEGORIES: ", response);
 
       if (response && response.length > 0) {
 
