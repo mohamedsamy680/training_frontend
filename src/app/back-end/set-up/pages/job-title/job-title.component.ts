@@ -141,18 +141,6 @@ export class JobTitleComponent extends BackBaseComponent implements OnInit {
     this.nameEnCtrl.setValue(upd.nameEn);
     this.departmentsCtrl.setValue(upd.departments.map(d => d.departmentId));
 
-    // if (upd.departments.length > 0) {
-    //   let arr: number[] = [];
-
-    //   for (var i = 0; i < upd.departments.length; i++) {
-    //     arr.push(upd.departments[i].departmentId);
-    //   }
-    //   //console.log("array of action ids: ", arr);
-    //   this.departmentsCtrl.setValue(arr);
-    //   //console.log("action ids controller: ", this.actionsCtrl.value);
-    // }
-
-
     this.saveEditString = 'Edit Job Title';
     this.saveButtonString = 'Edit';
   }
@@ -197,10 +185,6 @@ export class JobTitleComponent extends BackBaseComponent implements OnInit {
       obj.departmentIds = [];
 
       obj.departmentIds = this.departmentsCtrl.value;
-
-      // for (var i = 0; i < this.departmentsCtrl.value.length; i++) {
-      //   obj.departmentIds.push(this.departmentsCtrl.value[i]);
-      // }
 
       if (this.jobTitleIdCtrl.value && this.jobTitleIdCtrl.value !== 0) {
         obj.jobTitleId = this.jobTitleIdCtrl.value;
