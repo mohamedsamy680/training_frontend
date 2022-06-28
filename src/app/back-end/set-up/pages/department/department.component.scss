@@ -1,0 +1,33 @@
+
+table {
+    width: 100%;
+  }
+  
+  .mat-table {
+    min-width: 1400px;
+  }
+  
+  .mat-paginator {
+    min-width: 1400px;
+  }
+  
+  .mat-column-departmentId {
+    flex: 0 0 300px;
+  }
+  
+  .mat-column-nameAr {
+    flex: 0 0 400px;
+  }
+  
+  .mat-column-nameEn {
+    flex: 0 0 400px;
+  }
+  
+  .mat-column-edit {
+    flex: 0 0 150px;
+  }
+  
+  .mat-column-delete {
+    flex: 0 0 150px;
+  }
+  

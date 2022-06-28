@@ -1,0 +1,13 @@
+#error {
+    background-image: url('../../../assets/img/gallery/dark-bg.jpg');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+
+@media(max-width:768px) {
+    #error {
+        .error-img {
+            width: 300px;
+        }
+    }
+}

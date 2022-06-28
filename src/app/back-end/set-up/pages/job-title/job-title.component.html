@@ -1,0 +1,158 @@
+<div class="content-body">
+    <br>
+    <ngx-spinner></ngx-spinner>
+    <!-- (ngSubmit)="onSubmit()" -->
+    <form [formGroup]="myForm">
+      <div class="row match-height text-left">
+        <div class="col-md-12">
+          <mat-toolbar color="primary" class="mb-2">
+            <mat-toolbar-row>
+              <span class="white">{{ saveEditString }}</span>
+              <div class="row-end">
+                <a class="btn gradient-shdow-night white shadow-z-1-hover mr-2" (click)="onBack()">
+                  <span>
+                    <i class="fa fa-arrow-left"></i>
+                  </span>
+                  Back
+                </a>
+                <a class="btn gradient-ibiza-sunset white shadow-z-1-hover mr-2" (click)="onClear()">
+                  <span>
+                    <i class="fa fa-undo"></i>
+                  </span>
+                  Reset
+                </a>
+                <button type="reset" hidden #btnReset></button>
+                <a type="button" class="btn gradient-man-of-steel white shadow-z-1-hover mr-2" (click)="onSubmit()">
+                  <span>
+                    <i class="fa fa-save"></i>
+                  </span>
+                  {{ saveButtonString }}
+                </a>
+              </div>
+            </mat-toolbar-row>
+          </mat-toolbar>
+  
+          <div class="row">
+            <div class="col-12">
+              <mat-card class="example-card" matchHeight="290">
+  
+                <div class="row">
+                  <div class="col-sm-4">
+                    <mat-form-field class="fullwidth">
+                      <mat-label>Arabic Name</mat-label>
+                      <input matInput placeholder="Arabic Name" formControlName="nameAr">
+                      <mat-hint align="end">{{nameArCtrl.value?.length || 0}}/50</mat-hint>
+                      <mat-error *ngIf="nameArCtrl.errors">
+                        <div *ngIf="nameArCtrl.hasError('required')">
+                          You must choose a value.
+                        </div>
+                        <div *ngIf="nameArCtrl.hasError('maxlength')">
+                            Value length must not exceed {{nameArCtrl.errors.maxlength.requiredLength}} but you wrote {{nameArCtrl.errors.maxlength.actualLength}}
+                        </div>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+  
+                  <div class="col-sm-4">
+                    <mat-form-field class="fullwidth">
+                      <mat-label>English Name</mat-label>
+                      <input matInput placeholder="English Name" formControlName="nameEn">
+                      <mat-hint align="end">{{nameEnCtrl.value?.length || 0}}/50</mat-hint>
+                      <mat-error *ngIf="nameEnCtrl.errors">
+                        <div *ngIf="nameEnCtrl.hasError('required')">
+                          You must choose a value.
+                        </div>
+                        <div *ngIf="nameEnCtrl.hasError('maxlength')">
+                            Value length must not exceed {{nameEnCtrl.errors.maxlength.requiredLength}} but you wrote {{nameEnCtrl.errors.maxlength.actualLength}}
+                        </div>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-sm-4">
+                    <mat-form-field class="fullwidth">
+                        <mat-select placeholder="Departments" formControlName="departments" multiple>
+                          <mat-option *ngFor="let dep of departments" [value]="dep.departmentId">
+                            {{ dep.nameEn }}
+                          </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="departmentsCtrl.errors">
+                          <div *ngIf="departmentsCtrl.hasError('required')">
+                            You must choose a value.
+                          </div>
+                        </mat-error>
+                    </mat-form-field>
+                  </div>
+
+                </div>
+  
+              </mat-card>
+            </div>
+          </div>
+  
+          <hr />
+  
+          <mat-form-field class="fullwidth">
+            <mat-label>Filter the data</mat-label>
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+          </mat-form-field>
+  
+          <table mat-table [dataSource]="dataSource" matSort>
+  
+            <ng-container matColumnDef="jobTitleId">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> # </mat-header-cell>
+              <mat-cell *matCellDef="let obj"> {{ obj.jobTitleId }} </mat-cell>
+            </ng-container>
+  
+            <ng-container matColumnDef="nameAr">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Arabic Name </mat-header-cell>
+              <mat-cell *matCellDef="let obj"> {{ obj.nameAr }} </mat-cell>
+            </ng-container>
+  
+            <ng-container matColumnDef="nameEn">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> English Name </mat-header-cell>
+              <mat-cell *matCellDef="let obj"> {{ obj.nameEn }} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="departments">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Departments </mat-header-cell>
+                <mat-cell *matCellDef="let obj"> 
+                    <ul>
+                        <!-- {{action.actionName === 'View' ? 'badge-dark' :action.actionName === 'Search' ? 'badge-secondary' : action.actionName === 'Save' ? 'badge-success' : action.actionName === 'Edit' ? 'badge-info' : action.actionName === 'Delete' ? 'badge-danger' : action.actionName === 'Print' ? 'badge-primary' : 'badge-warning'}}-->
+                        <li *ngFor="let dep of obj.departments" class="badge badge-pill m-1">
+                          {{dep.nameEn}}
+                        </li>
+                    </ul> 
+                </mat-cell>
+              </ng-container>
+  
+            <ng-container matColumnDef="edit">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Edit </mat-header-cell>
+              <mat-cell *matCellDef="let obj">
+                <button type="button" class="btn gradient-blackberry white" (click)="onEdit(obj)">
+                  <span>
+                    <i class="fa fa-edit"></i>
+                  </span>
+                </button>
+              </mat-cell>
+            </ng-container>
+  
+            <ng-container matColumnDef="delete">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Delete </mat-header-cell>
+              <mat-cell *matCellDef="let obj">
+                <button type="button" class="btn gradient-starfall white" (click)="onDelete(obj)">
+                  <span>
+                    <i class="fa fa-trash"></i>
+                  </span>
+                </button>
+              </mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </table>
+          <mat-paginator [pageSizeOptions]="trainingPageSizeOptions" showFirstLastButtons></mat-paginator>
+        </div>
+      </div>
+    </form>
+  </div>
+    
