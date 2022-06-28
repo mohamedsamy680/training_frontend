@@ -74,7 +74,7 @@ export class DepartmentComponent extends BackBaseComponent implements OnInit {
     this.departmentService.getAllDepartments<IDepartmentModel[]>().subscribe(response => {
       this.hide;
 
-      console.log("DEPARTMENTS: ", response);
+      //console.log("DEPARTMENTS: ", response);
 
       if (response && response.length > 0) {
 
