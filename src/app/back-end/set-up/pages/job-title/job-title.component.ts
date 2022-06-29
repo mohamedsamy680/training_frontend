@@ -183,8 +183,8 @@ export class JobTitleComponent extends BackBaseComponent implements OnInit {
       obj.nameAr = this.nameArCtrl.value;
       obj.nameEn = this.nameEnCtrl.value;
       obj.departmentIds = [];
-
       obj.departmentIds = this.departmentsCtrl.value;
+
 
       if (this.jobTitleIdCtrl.value && this.jobTitleIdCtrl.value !== 0) {
         obj.jobTitleId = this.jobTitleIdCtrl.value;
